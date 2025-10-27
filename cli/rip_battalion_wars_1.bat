@@ -1,0 +1,3 @@
+tools\universal_asset_tool\universal_asset_tool.exe battalion_wars_1
+
+pause

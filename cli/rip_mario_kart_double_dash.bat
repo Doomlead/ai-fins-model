@@ -1,0 +1,3 @@
+tools\universal_asset_tool\universal_asset_tool.exe mario_kart_double_dash
+
+pause

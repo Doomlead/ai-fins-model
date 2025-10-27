@@ -1,0 +1,3 @@
+tools\universal_asset_tool\universal_asset_tool.exe ocarina_of_time_3d
+
+pause

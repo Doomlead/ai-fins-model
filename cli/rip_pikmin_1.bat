@@ -1,0 +1,3 @@
+tools\universal_asset_tool\universal_asset_tool.exe pikmin_1
+
+pause

@@ -1,0 +1,3 @@
+tools\universal_asset_tool\universal_asset_tool.exe luigis_mansion_3d
+
+pause

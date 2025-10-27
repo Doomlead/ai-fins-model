@@ -1,0 +1,3 @@
+tools\universal_asset_tool\universal_asset_tool.exe professor_layton_vs_phoenix_wright
+
+pause
