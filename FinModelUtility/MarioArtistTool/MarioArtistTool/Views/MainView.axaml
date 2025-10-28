@@ -1,0 +1,86 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:marioartisttool.ViewModels"
+             xmlns:scene="clr-namespace:fin.ui.avalonia.scene;assembly=Fin.Ui.Avalonia"
+             xmlns:controls="clr-namespace:fin.ui.avalonia.controls;assembly=Fin.Ui.Avalonia"
+             xmlns:fileSelect="clr-namespace:MarioArtistTool.file_select"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="marioartisttool.Views.MainView"
+             x:DataType="vm:MainViewModel"
+             Cursor="{Binding Cursor}">
+  <Design.DataContext>
+    <!-- This only sets the DataContext for the previewer in an IDE,
+         to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+    <vm:MainViewModelForDesigner />
+  </Design.DataContext>
+
+  <UserControl.Styles>
+    <Style Selector="TreeDataGridExpanderCell DockPanel > Border">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+  </UserControl.Styles>
+
+  <DockPanel>
+    <DockPanel Width="250"
+               DockPanel.Dock="Left">
+      <fileSelect:FileSelectTopBar DockPanel.Dock="Top" />
+
+      <Panel>
+        <Grid>
+          <Border>
+            <Border.Background>
+              <VisualBrush TileMode="Tile"
+                           Stretch="Uniform"
+                           DestinationRect="0,0,32,32">
+                <VisualBrush.Visual>
+                  <Image Width="32" Height="32">
+                    <Image.Source>
+                      <DrawingImage>
+                        <DrawingImage.Drawing>
+                          <DrawingGroup>
+                            <GeometryDrawing Geometry="M0,0 L2,0 2,2, 0,2Z"
+                                             Brush="#23503f" />
+                            <GeometryDrawing Geometry="M0,1 L2,1 2,2, 1,2 1,0 0,0Z"
+                                             Brush="#22473d" />
+                          </DrawingGroup>
+                        </DrawingImage.Drawing>
+                      </DrawingImage>
+                    </Image.Source>
+                  </Image>
+                </VisualBrush.Visual>
+              </VisualBrush>
+            </Border.Background>
+          </Border>
+
+          <Image Source="/Assets/file_select/gradient_dark.png"
+                 Stretch="Fill"
+                 BlendMode="Multiply"
+                 Opacity=".5" />
+
+          <Image Source="/Assets/file_select/gradient_light.png"
+                 Stretch="Fill"
+                 BlendMode="ColorDodge"
+                 Opacity=".9" />
+        </Grid>
+
+        <Border Padding="4">
+          <controls:If Condition="{Binding FileSystemTreeSource, Converter={x:Static ObjectConverters.IsNotNull}}">
+            <TreeDataGrid Source="{Binding FileSystemTreeSource}"
+                          ShowColumnHeaders="False" />
+          </controls:If>
+        </Border>
+      </Panel>
+    </DockPanel>
+
+    <Panel>
+      <scene:SceneInstanceViewerGlPanel
+        x:Name="ViewerGlPanel"
+        IsTabStop="True"
+        TabIndex="0"
+        Focusable="True"
+        ShowGrid="True" />
+    </Panel>
+  </DockPanel>
+</UserControl>
