@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RootNamespace>pikmin1</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Fin\Fin\Fin.csproj" />
+    <ProjectReference Include="..\Pikmin1\Pikmin1.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="goldens\chappy\output\" />
+    <Folder Include="goldens\king\output\" />
+    <Folder Include="goldens\snake\output\" />
+  </ItemGroup>
+
+</Project>

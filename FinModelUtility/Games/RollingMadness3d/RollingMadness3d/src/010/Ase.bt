@@ -1,0 +1,97 @@
+//------------------------------------------------
+//--- 010 Editor v13.0.1 Binary Template
+//
+//      File: 
+//   Authors: 
+//   Version: 
+//   Purpose: 
+//  Category: 
+// File Mask: 
+//  ID Bytes: 
+//   History: 
+//------------------------------------------------
+
+const uint COUNT_COLOR = 0xffffff;
+const uint IMAGE_COLOR = 0xff0000;
+
+const uint VERTEX_COLOR = 0x00ff00;
+const uint UVDATA_COLOR = 0x0000ff;
+const uint TRIANGLE_COLOR = 0xff00ff;
+const uint UNK4_COLOR = 0x00ffff;
+const uint UNK5_COLOR = 0xffff00;
+
+LittleEndian();
+
+typedef struct {
+  char openQuote;
+  
+  do {
+    char fileName;
+  } while (fileName != '"');
+} String;
+
+uint imgCount <bgcolor=COUNT_COLOR>;
+String imgs[imgCount] <optimize=false,bgcolor=IMAGE_COLOR>;
+
+uint lightmapCount <bgcolor=COUNT_COLOR>;
+String lightmaps[lightmapCount] <optimize=false,bgcolor=IMAGE_COLOR>;
+
+uint unk0;
+uint unkId0;
+
+typedef struct {
+  float position[3];
+  float normal[3];
+} Vertex;
+
+uint vertexCount <bgcolor=COUNT_COLOR>;
+Vertex vertices[vertexCount] <bgcolor=VERTEX_COLOR>;
+
+typedef struct {
+  float uv[2];
+  float unk0;
+  float unk1;
+  float lightmapUv[2];
+} UvData;
+
+uint uvDataCount <bgcolor=COUNT_COLOR>;
+UvData uvDatas[uvDataCount] <bgcolor=UVDATA_COLOR>;
+
+typedef struct {
+  uint vertices[3];
+  uint materialIndex;
+  uint unk4;
+  int lightmapIndex;
+  uint unk6;
+} Triangle;
+
+uint triangleCount <bgcolor=COUNT_COLOR>;
+Triangle triangles[triangleCount] <bgcolor=TRIANGLE_COLOR>;
+
+typedef struct {
+  uint section0Count0;
+  uint section0Count1;
+  int section0Count2;
+  int section0Count3;
+   
+  float unk5[30];
+   
+  uint unk6Count0; 
+  uint unk6Count1; 
+  int unk6Count2;
+  int unk6Count3;
+  uint unk6Count4;
+ 
+  uint unk7Count <bgcolor=COUNT_COLOR>;
+  uint unk7s[unk7Count] <optimize=false,bgcolor=UNK5_COLOR>;
+} Unk4;
+
+uint unk4Count <bgcolor=COUNT_COLOR>;
+Unk4 unk4Values[1] <optimize=false,bgcolor=UNK4_COLOR>;
+
+// ...
+
+
+
+//uint someCount;
+//uint someValues[someCount];

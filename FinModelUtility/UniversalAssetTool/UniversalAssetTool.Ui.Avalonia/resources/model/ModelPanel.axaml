@@ -1,0 +1,108 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:model="clr-namespace:uni.ui.avalonia.resources.model"
+             xmlns:animations="clr-namespace:uni.ui.avalonia.resources.animation"
+             xmlns:materials="clr-namespace:uni.ui.avalonia.resources.model.materials"
+             xmlns:skeleton="clr-namespace:uni.ui.avalonia.resources.model.skeleton"
+             xmlns:textures="clr-namespace:uni.ui.avalonia.resources.texture"
+             xmlns:registers="clr-namespace:uni.ui.avalonia.resources.registers"
+             xmlns:resource="clr-namespace:uni.ui.avalonia.resources"
+             xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+             xmlns:mesh="clr-namespace:uni.ui.avalonia.resources.model.mesh"
+             mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="500"
+             x:Class="uni.ui.avalonia.resources.model.ModelPanel"
+             x:DataType="model:ModelPanelViewModel">
+  <Design.DataContext>
+    <model:ModelPanelViewModelForDesigner />
+  </Design.DataContext>
+
+  <TabControl x:Name="ModelTabs"
+              Classes="h2 spaceFirst indented"
+              SelectionChanged="ClearSelectedTextureWhenTabChanged_"
+              TabStripPlacement="Left"
+              Margin="-12 0">
+    <TabControl.Styles>
+      <Style Selector="TabItem .sideTab > avalonia|MaterialIcon">
+        <Setter Property="Margin" Value="0 4 8 4" />
+      </Style>
+      <Style Selector="TabItem .sideTab > TextBlock">
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Margin" Value="0 0 -10 0" />
+      </Style>
+    </TabControl.Styles>
+
+    <TabItem>
+      <TabItem.Header>
+        <StackPanel Classes="sideTab" Orientation="Horizontal">
+          <avalonia:MaterialIcon Kind="{StaticResource FileIcon}" />
+          <TextBlock Text="Files" />
+        </StackPanel>
+      </TabItem.Header>
+      <resource:FilesPanel DataContext="{Binding FilesPanel}" />
+    </TabItem>
+    <TabItem>
+      <TabItem.Header>
+        <StackPanel x:Name="SkeletonTabHeader"
+                    Classes="sideTab"
+                    Orientation="Horizontal">
+          <avalonia:MaterialIcon Kind="{StaticResource BoneIcon}" />
+          <TextBlock Text="Skeleton" />
+        </StackPanel>
+      </TabItem.Header>
+      <skeleton:SkeletonTree DataContext="{Binding SkeletonTree}" />
+    </TabItem>
+    <TabItem>
+      <TabItem.Header>
+        <StackPanel x:Name="MeshesTabHeader"
+                    Classes="sideTab"
+                    Orientation="Horizontal">
+          <avalonia:MaterialIcon Kind="{StaticResource MeshIcon}" />
+          <TextBlock Text="Meshes" />
+        </StackPanel>
+      </TabItem.Header>
+      <mesh:MeshTree DataContext="{Binding MeshTree}" />
+    </TabItem>
+    <TabItem>
+      <TabItem.Header>
+        <StackPanel Classes="sideTab" Orientation="Horizontal">
+          <avalonia:MaterialIcon Kind="{StaticResource AnimationIcon}" />
+          <TextBlock Text="Animations" />
+        </StackPanel>
+      </TabItem.Header>
+      <animations:AnimationsPanel DataContext="{Binding AnimationsPanel}" />
+    </TabItem>
+    <TabItem>
+      <TabItem.Header>
+        <StackPanel x:Name="MaterialsTabHeader"
+                    Classes="sideTab"
+                    Orientation="Horizontal">
+          <avalonia:MaterialIcon Kind="{StaticResource MaterialIcon}" />
+          <TextBlock Text="Materials" />
+        </StackPanel>
+      </TabItem.Header>
+      <materials:MaterialsPanel DataContext="{Binding MaterialsPanel}" />
+    </TabItem>
+    <TabItem>
+      <TabItem.Header>
+        <StackPanel x:Name="TexturesTabHeader"
+                    Classes="sideTab"
+                    Orientation="Horizontal">
+          <avalonia:MaterialIcon Kind="{StaticResource TextureIcon}" />
+          <TextBlock Text="Textures" />
+        </StackPanel>
+      </TabItem.Header>
+      <textures:TexturesPanel DataContext="{Binding TexturesPanel}" />
+    </TabItem>
+    <TabItem>
+      <TabItem.Header>
+        <StackPanel Classes="sideTab" Orientation="Horizontal">
+          <avalonia:MaterialIcon Kind="{StaticResource RegisterIcon}" />
+          <TextBlock Text="Registers" />
+        </StackPanel>
+      </TabItem.Header>
+      <registers:RegistersPanel DataContext="{Binding RegistersPanel}" />
+    </TabItem>
+  </TabControl>
+</UserControl>

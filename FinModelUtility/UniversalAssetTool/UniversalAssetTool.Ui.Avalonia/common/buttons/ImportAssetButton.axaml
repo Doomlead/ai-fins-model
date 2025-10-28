@@ -1,0 +1,12 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:buttons="clr-namespace:fin.ui.avalonia.buttons;assembly=Fin.Ui.Avalonia"
+             mc:Ignorable="d"
+             x:Class="uni.ui.avalonia.common.buttons.ImportAssetButton">
+  <buttons:ContrastableIconButton
+      Tooltip="Import asset"
+      Icon="FileImport"
+      Click="Button_OnClick" />
+</UserControl>

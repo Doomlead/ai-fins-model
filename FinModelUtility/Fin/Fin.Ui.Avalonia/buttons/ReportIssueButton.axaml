@@ -1,0 +1,23 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:buttons="clr-namespace:fin.ui.avalonia.buttons"
+             xmlns:controls="clr-namespace:fin.ui.avalonia.controls"
+             mc:Ignorable="d"
+             x:Class="fin.ui.avalonia.buttons.ReportIssueButton"
+             x:DataType="buttons:ReportIssueButtonViewModel">
+  <controls:If Condition="{Binding Path=ShowText}">
+    <controls:If.ContentWhenTrue>
+      <Button Click="Button_OnClick">
+        <TextBlock Text="Report issue via GitHub" Padding="0 0 4 0" />
+      </Button>
+    </controls:If.ContentWhenTrue>
+    <controls:If.ContentWhenFalse>
+      <buttons:ContrastableIconButton
+          Tooltip="Report issue via GitHub"
+          Icon="Bug"
+          Click="Button_OnClick" />
+    </controls:If.ContentWhenFalse>
+  </controls:If>
+</UserControl>

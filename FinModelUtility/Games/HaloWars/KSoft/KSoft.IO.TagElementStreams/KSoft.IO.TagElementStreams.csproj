@@ -1,0 +1,70 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <OutputType>Library</OutputType>
+    <RootNamespace>KSoft.IO</RootNamespace>
+    <CodeContractsAssemblyMode>1</CodeContractsAssemblyMode>
+  </PropertyGroup>
+  <Import Project="$(MSBuildProjectDirectory)\..\KSoft.BCL.props" />
+  <ItemGroup>
+    <Compile Update="_Details\TagElementTextStream.ReadT4.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TagElementTextStream.ReadT4.tt</DependentUpon>
+    </Compile>
+    <Compile Update="_Details\TagElementTextStream.WriteT4.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TagElementTextStream.WriteT4.tt</DependentUpon>
+    </Compile>
+    <Compile Update="_Details\TagElementStream.ReadT4.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TagElementStream.ReadT4.tt</DependentUpon>
+    </Compile>
+    <Compile Update="_Details\TagElementStream.SerializeT4.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TagElementStream.SerializeT4.tt</DependentUpon>
+    </Compile>
+    <Compile Update="_Details\TagElementStream.WriteT4.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TagElementStream.WriteT4.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Json\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="$(VitaRootDir)KSoft\KSoft\KSoft.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="_Details\TagElementTextStream.ReadT4.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>TagElementTextStream.ReadT4.cs</LastGenOutput>
+    </None>
+    <None Update="_Details\TagElementTextStream.WriteT4.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>TagElementTextStream.WriteT4.cs</LastGenOutput>
+    </None>
+    <None Update="_Details\TagElementStream.ReadT4.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>TagElementStream.ReadT4.cs</LastGenOutput>
+    </None>
+    <None Update="_Details\TagElementStream.SerializeT4.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>TagElementStream.SerializeT4.cs</LastGenOutput>
+    </None>
+    <None Update="_Details\TagElementStream.WriteT4.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>TagElementStream.WriteT4.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+  </ItemGroup>
+</Project>

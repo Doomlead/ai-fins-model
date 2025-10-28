@@ -1,0 +1,28 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:materials="clr-namespace:uni.ui.avalonia.resources.model.materials"
+             xmlns:converters="clr-namespace:uni.ui.avalonia.util.converters"
+             xmlns:common="clr-namespace:uni.ui.avalonia.common"
+             xmlns:controls="clr-namespace:fin.ui.avalonia.controls;assembly=Fin.Ui.Avalonia"
+             mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="800"
+             x:Class="uni.ui.avalonia.resources.model.materials.MaterialPanel"
+             x:DataType="materials:MaterialPanelViewModel">
+  <Design.DataContext>
+    <materials:MaterialPanelViewModelForDesigner />
+  </Design.DataContext>
+
+  <Grid RowDefinitions="Auto * *">
+    <controls:If Condition="{Binding MaterialTexturesPanel.TextureList.TextureViewModels.Count, Converter={x:Static converters:IntConverters.IsNot0}}">
+      <materials:MaterialTexturesPanel
+          DataContext="{Binding MaterialTexturesPanel}" />
+    </controls:If>
+    <materials:MaterialShadersPanel
+        Grid.Row="1"
+        DataContext="{Binding MaterialShadersPanel}" />
+    <common:KeyValueGrid
+        Grid.Row="2"
+        DataContext="{Binding MaterialKeyValueGrid}" />
+  </Grid>
+</UserControl>

@@ -1,0 +1,22 @@
+using Avalonia.Controls;
+
+using fin.ui.avalonia;
+
+using ReactiveUI;
+
+namespace uni.ui.avalonia.toolbars;
+
+public sealed class FileBundleToolbarModelForDesigner : FileBundleToolbarModel {
+  public new string FileName => "//foo/bar.mod";
+}
+
+public class FileBundleToolbarModel : BViewModel {
+  public string? FileName {
+    get;
+    set => this.RaiseAndSetIfChanged(ref field, value);
+  }
+}
+
+public partial class FileBundleToolbar : UserControl {
+  public FileBundleToolbar() => this.InitializeComponent();
+}

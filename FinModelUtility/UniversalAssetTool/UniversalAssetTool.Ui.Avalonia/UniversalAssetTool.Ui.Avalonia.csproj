@@ -1,0 +1,83 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <Nullable>enable</Nullable>
+    <RootNamespace>uni.ui.avalonia</RootNamespace>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+  </PropertyGroup>
+
+
+  <ItemGroup>
+    <AvaloniaResource Include="Assets\**" />
+    <AvaloniaResource Include="icons\**" />
+    <AvaloniaResource Update="icons\**">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </AvaloniaResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Avalonia.Controls.ColorPicker" Version="$(AvaloniaVersion)" />
+    <PackageReference Include="Avalonia.Controls.DataGrid" Version="$(AvaloniaVersion)" />
+    <PackageReference Include="Avalonia.Controls.TreeDataGrid" Version="11.1.1" />
+    <PackageReference Include="AvaloniaControlsToolBar" Version="0.0.1" />
+    <PackageReference Include="AvaloniaUIRibbon" Version="1.1.0-beta" />
+    <PackageReference Include="ConfigFactory" Version="0.4.3" />
+    <PackageReference Include="ConfigFactory.Avalonia" Version="0.4.3" />
+    <PackageReference Include="LoadingIndicators.Avalonia" Version="11.0.11.1" />
+    <PackageReference Include="MessageBox.Avalonia" Version="3.2.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.14.0" />
+    <PackageReference Include="OxyPlot.Avalonia" Version="2.1.0-Avalonia11" />
+    <PackageReference Include="ObservableCollections" Version="3.3.4" />
+    <PackageReference Include="TextMateSharp" Version="1.0.70" />
+    <PackageReference Include="TextMateSharp.Grammars" Version="1.0.70" />
+    <PackageReference Include="UVtools.AvaloniaControls" Version="4.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Fin\Fin.Ui\Fin.Ui.csproj" />
+    <ProjectReference Include="..\..\Fin\Fin.Ui.Avalonia\Fin.Ui.Avalonia.csproj" />
+    <ProjectReference Include="..\..\Fin\Fin\Fin.csproj" />
+    <ProjectReference Include="..\..\Libraries\Grezzo\Grezzo\Grezzo.csproj" />
+    <ProjectReference Include="..\UniversalAssetTool\UniversalAssetTool.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="**\*.xaml.cs">
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
+    <Compile Update="**\*.axaml.cs">
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
+    <AvaloniaResource Include="**\*.xaml">
+      <SubType>Designer</SubType>
+    </AvaloniaResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <AvaloniaResource Remove="io\NewFolder\**" />
+    <AvaloniaResource Remove="NewFolder\**" />
+    <AvaloniaXaml Remove="io\NewFolder\**" />
+    <AvaloniaXaml Remove="NewFolder\**" />
+    <Compile Remove="io\NewFolder\**" />
+    <Compile Remove="NewFolder\**" />
+    <EmbeddedResource Remove="io\NewFolder\**" />
+    <EmbeddedResource Remove="NewFolder\**" />
+    <None Remove="io\NewFolder\**" />
+    <None Remove="NewFolder\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="io\ExportProgressWindow.axaml.cs">
+      <DependentUpon>ExportProgressWindow.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="io\FileBundleGatherersProgressWindow.axaml.cs">
+      <DependentUpon>FileBundleGatherersProgressWindow.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="resources\model\mesh\MeshTree.axaml.cs">
+      <DependentUpon>MeshTree.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="toolbars\FileBundleToolbar.axaml.cs">
+      <DependentUpon>FileBundleToolbar.axaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+</Project>

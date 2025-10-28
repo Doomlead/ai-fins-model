@@ -1,0 +1,195 @@
+//------------------------------------------------
+//--- 010 Editor v13.0.1 Binary Template
+//
+//      File: 
+//   Authors: 
+//   Version: 
+//   Purpose: 
+//  Category: 
+// File Mask: 
+//  ID Bytes: 
+//   History: 
+//------------------------------------------------
+
+/** Most of this is straight-up copied from sleepyzay's script. **/
+
+LittleEndian();
+
+local uint C_POINTER = 0x888888;
+
+typedef struct (uint offset) {
+  local uint tempOffset = FTell();
+  FSeek(offset);
+
+  string value;
+
+  FSeek(tempOffset);
+} StringAtOffset;
+
+
+typedef struct {
+  float x;
+  float y;
+  float z;
+} Vec3f;
+
+typedef struct {
+  float values[16];
+} Mat4x4;
+
+
+typedef struct {
+  uint magic;
+  uint unk0[2];
+
+  uint fileSize;
+  uint unk1[4];
+  
+  uint modelNameOffset <bgcolor=C_POINTER>;
+  StringAtOffset name(modelNameOffset);
+
+  uint unk2[4];
+
+  uint meshCount;
+  uint boneCount;
+
+  ushort unk3[6];
+
+  uint refCount;
+  uint refTableOffset <bgcolor=C_POINTER>;
+
+  uint tableOffset <bgcolor=C_POINTER>;
+  uint unkOffset <bgcolor=C_POINTER>;
+
+  uint unk4[2];
+  uint boneDataOffset <bgcolor=C_POINTER>;
+  uint boneOffset <bgcolor=C_POINTER>;
+  uint uvBufferInfoOffset <bgcolor=C_POINTER>;
+  uint faceBufferInfoOffset <bgcolor=C_POINTER>;
+
+
+  FSeek(uvBufferInfoOffset);
+  uint unk5[4];
+  uint uvBufferLength;
+  uint totalUvBufferCount;
+  ushort uvSize;
+  ushort unk6;
+  uint uvBufferOffset <bgcolor=C_POINTER>;
+} FileHeader;
+
+FileHeader fileHeader;
+
+
+typedef struct {
+  uint boneNameOffset <bgcolor=C_POINTER>;
+  StringAtOffset name(boneNameOffset);
+
+  ushort unk0;
+  ushort unk1;
+  uint null;
+  uint someId;
+
+  local uint tempOffset = FTell();
+
+  Assert(someId >= 0 && someId <= fileHeader.boneCount);
+
+  // This might not be the right use of "someId"
+  FSeek(fileHeader.boneOffset + 16 * (someId - 1));
+  Mat4x4 matrix;
+
+  FSeek(tempOffset);
+} Bone;
+
+FSeek(fileHeader.boneDataOffset);
+Bone bones[fileHeader.boneCount] <optimize=false,bgcolor=0xff00ff>;
+
+
+typedef struct {
+  local uint baseOffset = FTell();
+
+  uint meshNameOffset <bgcolor=C_POINTER>;
+  StringAtOffset name(meshNameOffset);
+
+  byte unk9[0x8];
+  
+  uint mtlbId;
+
+  byte unk1[0x10];
+  byte unk2[0x10];
+  
+  typedef struct {
+    uint _offset <bgcolor=C_POINTER>;
+    local uint tmp = FTell();
+    FSeek(_offset);
+      
+    uint faceCount;
+    uint faceOffset;
+    ushort baseVertexIndex;
+    ushort vertCount;
+    ushort something0;
+    ushort something1;
+    
+    FSeek(tmp);
+  } PolyInfoAtOffset <bgcolor=0x00A5FF>;  
+  PolyInfoAtOffset polyInfo;
+
+  byte unk3[0x4];
+
+  uint vertOffset <bgcolor=C_POINTER>;  
+  local uint tmp = FTell();
+  FSeek(vertOffset);
+
+  typedef struct {      
+    Vec3f Position;
+
+    uint normal;
+    uint tangent;
+
+    byte bones[4];
+    ushort weights[4];
+  } Vertex;
+  Vertex vertices[polyInfo.vertCount] <optimize=false, bgcolor=0xffff00>;
+  FSeek(tmp);
+
+  byte unk4[0x4];
+  
+  uint faceOffset <bgcolor=C_POINTER>;
+
+  byte unk5[0x4];
+
+
+  typedef struct {
+    float x;
+    float y;
+  } Uv8;
+  
+  typedef struct {
+    float x;
+    float y;
+    float unk0;
+    float unk1;
+    ubyte r;
+    ubyte g;
+    ubyte b;
+    ubyte a;
+  } Uv20;
+
+  FSeek(fileHeader.uvBufferOffset + polyInfo.baseVertexIndex * fileHeader.uvSize);
+  if (fileHeader.uvSize == 8) {
+    Uv8 uvs[polyInfo.vertCount] <bgcolor=0x000088>;
+  }
+  if (fileHeader.uvSize == 20) {
+    Uv20 uvs[polyInfo.vertCount] <bgcolor=0x0000ff>;
+  }
+
+  typedef struct {
+    ushort vertexIndices[3];
+  } Face;
+  FSeek(faceOffset);
+  Face faces[polyInfo.faceCount / 3] <optimize=false,bgcolor=0x00ffff>;
+
+  FSeek(baseOffset + 0xA0); 
+} Mesh;
+
+FSeek(fileHeader.tableOffset);
+Mesh meshes[fileHeader.meshCount] <optimize=false>;

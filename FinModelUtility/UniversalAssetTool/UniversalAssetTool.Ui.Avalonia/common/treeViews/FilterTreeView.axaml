@@ -1,0 +1,76 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:textboxes="clr-namespace:uni.ui.avalonia.common.textboxes"
+             xmlns:treeViews="clr-namespace:uni.ui.avalonia.common.treeViews"
+             xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+             xmlns:controls="clr-namespace:fin.ui.avalonia.controls;assembly=Fin.Ui.Avalonia"
+             mc:Ignorable="d" d:DesignWidth="250" d:DesignHeight="200"
+             x:Class="uni.ui.avalonia.common.treeViews.FilterTreeView"
+             x:DataType="treeViews:FileBundleTreeViewModelForDesigner">
+  <Design.DataContext>
+    <treeViews:FileBundleTreeViewModelForDesigner />
+  </Design.DataContext>
+
+  <!-- Overrides expander styles in tree view. -->
+  <UserControl.Styles>
+    <Style Selector="TreeDataGridTemplateCell">
+      <Setter Property="ClipToBounds" Value="False" />
+    </Style>
+
+    <Style Selector="TreeDataGridExpanderCell /template/ DockPanel Border">
+      <Setter Property="MinWidth" Value="28" />
+    </Style>
+
+    <Style Selector="TreeDataGridExpanderCell /template/ DockPanel Border ToggleButton">
+      <Setter Property="Width" Value="16" />
+      <Setter Property="Height" Value="16" />
+      <Setter Property="Margin" Value="0 0 -4 0" />
+    </Style>
+
+    <Style Selector="TreeDataGridExpanderCell /template/ ToggleButton:pointerover">
+      <Setter Property="Foreground" Value="{StaticResource ForegroundMediumBrush}" />
+    </Style>
+
+    <Style Selector="TreeDataGridExpanderCell /template/ ToggleButton[IsChecked=false]">
+      <Setter Property="Template">
+        <ControlTemplate>
+          <avalonia:MaterialIcon Kind="Folder" />
+        </ControlTemplate>
+      </Setter>
+    </Style>
+
+    <Style Selector="TreeDataGridExpanderCell /template/ ToggleButton[IsChecked=true]">
+      <Setter Property="Template">
+        <ControlTemplate>
+          <avalonia:MaterialIcon Kind="FolderOpen" />
+        </ControlTemplate>
+      </Setter>
+    </Style>
+
+    <Style Selector="TreeDataGridRow">
+      <Setter Property="Height" Value="{StaticResource RegularHeight}" />
+    </Style>
+
+    <Style Selector="TreeDataGridRow TextBlock">
+      <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+  </UserControl.Styles>
+
+  <!-- Renders tree view. -->
+  <DockPanel>
+    <textboxes:AutocompleteTextbox
+        x:Name="autocompleteTextbox_"
+        DockPanel.Dock="Top"
+        ItemsSource="{Binding AutoCompleteItems}"
+        Icon="Search"
+        Placeholder="Search file bundles..." />
+
+    <controls:If Condition="{Binding Source, Converter={x:Static ObjectConverters.IsNotNull}}">
+      <TreeDataGrid Source="{Binding Source}"
+                    Margin="-4 0"
+                    ShowColumnHeaders="False" />
+    </controls:If>
+  </DockPanel>
+</UserControl>

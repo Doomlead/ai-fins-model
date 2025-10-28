@@ -1,0 +1,80 @@
+//------------------------------------------------
+//--- 010 Editor v14.0 Binary Template
+//
+//      File: 
+//   Authors: 
+//   Version: 
+//   Purpose: 
+//  Category: 
+// File Mask: 
+//  ID Bytes: 
+//   History: 
+//------------------------------------------------
+
+LittleEndian();
+
+local int C_RED = 0x0000FF;
+local int C_GREEN = 0x00FF00;
+local int C_BLUE = 0xFF0000;
+local int C_YELLOW = 0x00FFFF;
+
+local int C_ID = 0xFFFF00;
+local int C_POINTER = 0x008800;
+local int C_OFFSET = 0x00FF00;
+
+typedef struct (uint offset) {
+  local uint tempOffset = FTell();
+  FSeek(offset);
+
+  string value;
+
+  FSeek(tempOffset);
+} StringAtOffset;
+
+typedef struct (uint offset) {
+  local uint tempOffset = FTell();
+  FSeek(offset);
+
+  float value;
+
+  FSeek(tempOffset);
+} FloatAtOffset;
+
+typedef struct {
+    string value;
+} StringNt;
+
+FSeek(0x4);
+
+uint count;
+uint mtlbId1 <bgcolor=C_ID>;
+uint mtlbId2 <bgcolor=C_ID>;
+
+uint stringsLength;
+
+FSeek(0x40);
+ushort highLodChannelCount;
+ushort lowLodChannelCount;
+uint valuesOffset <bgcolor=C_POINTER>;
+uint stringsOffset <bgcolor=C_POINTER>;
+
+StringAtOffset materialName(stringsOffset + stringsLength);
+
+FSeek(0x50);
+typedef struct {
+    uint id <bgcolor=C_ID>;
+    uint unk1;
+    
+    uint typeOffset <bgcolor=C_OFFSET>;
+    StringAtOffset type(stringsOffset + typeOffset) <bgcolor=C_BLUE>;
+    
+    uint unk2[2];
+    
+    uint valueOffset;
+    FloatAtOffset value(valuesOffset + valueOffset) <bgcolor=C_YELLOW>;
+    
+    uint pathOffset <bgcolor=C_OFFSET>;
+    StringAtOffset path(stringsOffset + pathOffset) <bgcolor=C_RED>;
+} Channel;
+Channel highLodChannels[highLodChannelCount] <optimize=false>;
+Channel lowLodChannels[lowLodChannelCount] <optimize=false>;

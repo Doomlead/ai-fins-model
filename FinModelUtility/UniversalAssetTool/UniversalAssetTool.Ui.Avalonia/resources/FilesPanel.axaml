@@ -1,0 +1,83 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:resource="clr-namespace:uni.ui.avalonia.resources"
+             xmlns:converters="clr-namespace:uni.ui.avalonia.util.converters"
+             xmlns:controls="clr-namespace:fin.ui.avalonia.controls;assembly=Fin.Ui.Avalonia"
+             xmlns:controls1="clr-namespace:uni.ui.avalonia.common.controls"
+             mc:Ignorable="d" d:DesignWidth="200" d:DesignHeight="450"
+             x:Class="uni.ui.avalonia.resources.FilesPanel"
+             x:DataType="resource:FilesPanelViewModel">
+  <Design.DataContext>
+    <resource:FilesPanelViewModelForDesigner />
+  </Design.DataContext>
+
+  <controls:If Condition="{Binding Paths, Converter={x:Static converters:ListConverters.HasAnyItems}}">
+    <controls:If.ContentWhenTrue>
+      <Border BorderThickness="1"
+              BorderBrush="{StaticResource BorderBrush}">
+        <Panel Margin="0 2 0 0"
+               ClipToBounds="True">
+          <DataGrid ItemsSource="{Binding Paths}"
+                    IsReadOnly="True"
+                    GridLinesVisibility="Horizontal"
+                    Margin="0 -2, 0 0"
+                    RowHeight="{StaticResource RegularHeight}"
+                    HeadersVisibility="None">
+            <DataGrid.Styles>
+              <Style Selector="DataGridRow /template/ Rectangle#BackgroundRectangle">
+                <Setter Property="IsVisible" Value="false"/>
+              </Style>
+              <Style Selector="DataGridCell:current /template/ Grid#FocusVisual">
+                <Setter Property="IsVisible" Value="false" />
+              </Style>
+            </DataGrid.Styles>
+
+            <DataGrid.Columns>
+              <DataGridTemplateColumn Width="*">
+                <DataGridTemplateColumn.CellTemplate>
+                  <DataTemplate>
+                    <Grid
+                        Margin="7 0"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Left">
+                      <controls:If
+                          Condition="{Binding Converter={x:Static converters:StringConverters.StartsWithSlashes}}">
+                        <controls:If.ContentWhenTrue>
+                          <DockPanel>
+                            <TextBlock
+                                Classes="regular"
+                                Text="//" />
+                            <TextBlock
+                                Margin="-3 0 0 0"
+                                Classes="regular"
+                                TextTrimming="CharacterEllipsis"
+                                FlowDirection="RightToLeft"
+                                Text="{Binding Converter={x:Static converters:StringConverters.SubstringAfterSlashes}}" />
+                          </DockPanel>
+                        </controls:If.ContentWhenTrue>
+                        <controls:If.ContentWhenFalse>
+                          <TextBlock
+                              Classes="regular"
+                              TextTrimming="CharacterEllipsis"
+                              FlowDirection="RightToLeft"
+                              Text="{Binding}" />
+                        </controls:If.ContentWhenFalse>
+                      </controls:If>
+                    </Grid>
+                  </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+              </DataGridTemplateColumn>
+            </DataGrid.Columns>
+          </DataGrid>
+        </Panel>
+      </Border>
+    </controls:If.ContentWhenTrue>
+    <controls:If.ContentWhenFalse>
+      <controls1:EmptyState
+          Text="No files to display."
+          Icon="FileOutline" />
+    </controls:If.ContentWhenFalse>
+  </controls:If>
+</UserControl>

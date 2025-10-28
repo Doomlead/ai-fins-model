@@ -1,0 +1,310 @@
+//------------------------------------------------
+//--- 010 Editor v13.0.1 Binary Template
+//
+//      File: 
+//   Authors: 
+//   Version: 
+//   Purpose: 
+//  Category: 
+// File Mask: 
+//  ID Bytes: 
+//   History: 
+//------------------------------------------------
+
+LittleEndian();
+
+local int C_POINTER = 0x000000; //0x888888;
+local int C_ANIMATION_HEADER = 0x000000; //0x00ffff;
+local int C_ANIMATION_DATA = 0xffff00;
+local int C_EVENT_DATA = 0x000000; // 0x0000ff;
+local int C_5F = 0xffffff;
+
+local int C_TYPE_1_BONE = 0x00ff00;
+local int C_TYPE_2_BONE = 0x0000ff;
+local int C_TYPE_8_BONE = 0x00ffff;
+local int C_TYPE_16_BONE = 0xff00ff;
+
+local uint i, ii;
+
+void Align(int64 amount, int64 section) {
+  local int64 pos = FTell();  
+  local int64 posRelativeToLine = pos % 0x10;
+
+  if (amount == 0x10) {
+    if (posRelativeToLine > 0) {
+      FSkip(0x10 - posRelativeToLine);
+    }
+  } else {
+    if (posRelativeToLine < amount) {
+      FSkip(amount - posRelativeToLine);
+    } else if (posRelativeToLine > amount) {
+      FSkip(0x10 - posRelativeToLine + amount);
+    }  
+  }
+}
+
+typedef struct {
+  uint pointersOffset <bgcolor=C_POINTER>;
+  uint maybeVersion;
+  uint unk1;
+  uint skeletonId; // Matches a value from the associated RCB file
+  uint unk2[5];
+
+  uint animationHeaderCount;
+  uint animationHeaderOffsetTableOffset <bgcolor=C_POINTER>;
+
+  uint animationDataCount;
+  uint animationDataOffsetTableOffset <bgcolor=C_POINTER>;
+
+  uint textCount;
+  uint textOffset <bgcolor=C_POINTER>;
+} FileHeader;
+
+FileHeader fileHeader;
+
+
+FSeek(fileHeader.pointersOffset);
+local uint pointerCount = (FileSize() - fileHeader.pointersOffset) >> 2;
+uint pointers[pointerCount];
+
+
+
+
+
+typedef struct {
+  uint ptr;
+
+  local uint tmp = FTell();
+  FSeek(ptr);
+
+  uint nameOffset <bgcolor=C_POINTER>;
+
+  typedef struct {
+    uint ptr;
+
+    local uint tmp = FTell();
+    FSeek(ptr);
+
+    enum <byte> BoneType {
+      ROOT = 0x2,
+      PARENT = 0x5,
+      ANIMATED = 0x16,
+    } type;
+
+    byte childCount;
+    byte maybeId;
+    byte unk1;
+
+    uint someOffset <bgcolor=C_POINTER>;
+    {
+      local uint tmp2 = FTell();
+      FSeek(someOffset);
+
+      switch (type) {
+        case PARENT: {
+          uint unk3;
+          float unk4;
+          float unk5;
+          uint unk6;
+
+          break;
+        }
+        case ANIMATED: {
+          uint unk7;
+          float unk8;
+          float unk9;
+
+          break;
+        }
+      }
+
+      FSeek(tmp2);
+    }
+
+    uint maybePadding;
+    
+    if (childCount > 0) {
+      struct MaybeBone children[childCount] <optimize=false>;
+    }
+
+    if (type == ANIMATED) {
+      uint pointerToAnimationData;
+      
+      FSeek(pointerToAnimationData);
+      uint animationData <bgcolor=cRed>;
+    }
+
+    FSeek(tmp);
+  } MaybeBone;
+
+  MaybeBone root;
+
+  FSeek(nameOffset);
+  string name;
+
+  FSeek(tmp);
+} AnimationHeader <bgcolor=C_ANIMATION_HEADER>;
+
+FSeek(fileHeader.animationHeaderOffsetTableOffset);
+AnimationHeader animationHeaders[fileHeader.animationHeaderCount] <optimize=false>;
+
+
+typedef struct {
+  uint ptr;
+
+  local uint tmp = FTell();
+  FSeek(ptr);
+
+  uint someId; // Looks like a hash, might be for some kind of name?
+  uint maybeVersion;
+  uint unk1;
+  uint unk2;
+
+  uint unk3;
+  // Matches something at the bottom of the RCB file, which seems to point to
+  // the number of bones that will be stored in this animation as well as the 
+  // bits choosing which bones will be active (i.e. FF or F7)
+  uint boneMapId; 
+  uint unk4;
+  uint unk5;
+
+  ushort animationType;
+  ushort unk6;
+  uint unk7;
+  uint someCount;
+  uint someOffset <bgcolor=C_POINTER>;
+  
+  if (animationType == 0) {
+    struct AnimationData0 animationData0 <bgcolor=0xff0000>;
+  }
+  if (animationType == 1) {
+    struct AnimationData1 animationData1;
+  }
+
+  typedef struct {
+    ushort maybePadding;
+    ushort maybeOffsetToData;
+    uint commandOffset <bgcolor=C_POINTER>;
+    uint someFlags;
+    uint paramsOffset <bgcolor=C_POINTER>;
+    
+    FSeek(commandOffset);
+    string command;
+  } SomeData <bgcolor=C_EVENT_DATA>;
+
+  typedef struct {
+    uint someEnum;
+    uint someValue;
+  } Params <bgcolor=C_EVENT_DATA>;
+
+
+  for(ii = 0; ii < someCount; ii++) {
+    FSeek(someOffset + 16 * ii);
+    SomeData someData;
+
+    FSeek(someData.paramsOffset);
+    Params params;
+  }
+
+  FSeek(tmp);
+} AnimationData;
+
+struct AnimationData0 {
+  uint unk0_0;
+  uint unk0_4;
+  uint unk0_8;
+  uint unk0_C;
+
+  uint unk1_0;
+  uint unk1_4;
+  ushort boneCount;
+  ushort boneSectionLength;
+  ushort unk1_C;
+  ushort unk1_E;
+  
+  ushort unk2_0;
+  ushort unk2_2;
+  ushort animationLength;
+  ushort animationLengthTimes2Or0;
+  ushort unk2_8;
+  ushort type2BoneCount;
+  ushort type1BoneCount;
+  ushort padding1;
+
+  ushort padding2;
+  ushort type8BoneCount;
+  ushort type16BoneCount;
+  ushort unk3_6;
+  ushort unk3_8;
+  ushort numOf5fsAfterHeader;
+  uint padding3;
+
+  uint maybeRanges[4 * 4];
+  
+  byte boneTypes[boneCount];
+  byte paddingAfterBones[boneSectionLength - boneCount];
+    
+  // Section 1
+  // TODO: Figure out how this is actually meant to work.
+  if (numOf5fsAfterHeader == 0) {
+    byte unkWithout5f[0x30];
+  } else {
+    local uint num5fs = 0;
+    while (num5fs < numOf5fsAfterHeader) {
+      byte value <bgcolor=C_5F>;
+      if (value == 0x5f) {
+        num5fs++;
+      }
+    }
+  }
+  local int64 align = 0x10 - (FTell() % 0x10);
+  
+  // Section 2
+  byte section2Bytes[6 * type1BoneCount] <bgcolor=C_TYPE_1_BONE>;
+  Align(align, 2);
+  
+  // Section 3
+  short section3Bytes[3 * type2BoneCount] <bgcolor=C_TYPE_2_BONE>;
+  Align(align, 3);
+  
+  // Section 4
+  short section4Bytes[unk3_6 * animationLength];
+  Align(align, 4);
+  
+  // Section 5
+  byte section5Bytes[unk3_8 * animationLength];
+  Align(align, 5);
+  
+  // Section 6
+  local ushort simpleBoneCount = type1BoneCount + type2BoneCount - type8BoneCount - type16BoneCount;
+  float section6Bytes[3 * simpleBoneCount];
+  Align(align, 6);
+  
+  // Section 7
+  float section7Bytes[3 * type8BoneCount] <bgcolor=C_TYPE_8_BONE>;
+  Align(align, 7);
+  
+  // Section 8
+  float section8Bytes[3 * type16BoneCount] <bgcolor=C_TYPE_16_BONE>;
+  Align(align, 8);
+
+  // Section 9
+  local ushort section9IndicesLength = animationLengthTimes2Or0 / 2; 
+  short section9Indices[section9IndicesLength];
+  if (section9IndicesLength > 0) {
+    local ushort gaps[section9IndicesLength - 1];
+    local uint i;
+    for (i = 0; i < section9IndicesLength - 1; ++i) {
+      gaps[i] = section9Indices[i+1] - section9Indices[i];
+    }
+  }
+  byte section9Bytes[4 * unk2_8];
+  Align(align, 9);
+};
+
+struct AnimationData1 {
+};
+
+
+FSeek(fileHeader.animationDataOffsetTableOffset);
+AnimationData animationDatas[fileHeader.animationDataCount] <optimize=false, bgcolor=C_ANIMATION_DATA>;

@@ -1,0 +1,46 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <OutputType>Library</OutputType>
+    <CodeContractsAssemblyMode>1</CodeContractsAssemblyMode>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <UseWindowsForms>true</UseWindowsForms>
+    <UseWPF>true</UseWPF>
+    <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
+  </PropertyGroup>
+  <Import Project="$(MSBuildProjectDirectory)\..\KSoft.BCL.props" />
+  <Import Project="$(VitaNugetPackagesDir)\Microsoft.CodeAnalysis.FxCopAnalyzers.2.9.9\build\Microsoft.CodeAnalysis.FxCopAnalyzers.props" Condition="Exists('$(VitaNugetPackagesDir)\Microsoft.CodeAnalysis.FxCopAnalyzers.2.9.9\build\Microsoft.CodeAnalysis.FxCopAnalyzers.props')" />
+  <Import Project="$(VitaNugetPackagesDir)\Microsoft.NetFramework.Analyzers.2.9.9\build\Microsoft.NetFramework.Analyzers.props" Condition="Exists('$(VitaNugetPackagesDir)\Microsoft.NetFramework.Analyzers.2.9.9\build\Microsoft.NetFramework.Analyzers.props')" />
+  <Import Project="$(VitaNugetPackagesDir)\Microsoft.NetCore.Analyzers.2.9.9\build\Microsoft.NetCore.Analyzers.props" Condition="Exists('$(VitaNugetPackagesDir)\Microsoft.NetCore.Analyzers.2.9.9\build\Microsoft.NetCore.Analyzers.props')" />
+  <Import Project="$(VitaNugetPackagesDir)\Microsoft.CodeQuality.Analyzers.2.9.9\build\Microsoft.CodeQuality.Analyzers.props" Condition="Exists('$(VitaNugetPackagesDir)\Microsoft.CodeQuality.Analyzers.2.9.9\build\Microsoft.CodeQuality.Analyzers.props')" />
+  <Import Project="$(VitaNugetPackagesDir)\Microsoft.CodeAnalysis.VersionCheckAnalyzer.2.9.9\build\Microsoft.CodeAnalysis.VersionCheckAnalyzer.props" Condition="Exists('$(VitaNugetPackagesDir)\Microsoft.CodeAnalysis.VersionCheckAnalyzer.2.9.9\build\Microsoft.CodeAnalysis.VersionCheckAnalyzer.props')" />
+  <ItemGroup>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="$(VitaRootDir)KSoft\KSoft\KSoft.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="$(VitaNugetPackagesDir)\Microsoft.CodeAnalysis.VersionCheckAnalyzer.2.9.9\analyzers\dotnet\cs\Microsoft.CodeAnalysis.VersionCheckAnalyzer.resources.dll" />
+    <Analyzer Include="$(VitaNugetPackagesDir)\Microsoft.CodeAnalysis.VersionCheckAnalyzer.2.9.9\analyzers\dotnet\Microsoft.CodeAnalysis.VersionCheckAnalyzer.dll" />
+    <Analyzer Include="$(VitaNugetPackagesDir)\Microsoft.CodeQuality.Analyzers.2.9.9\analyzers\dotnet\cs\Humanizer.dll" />
+    <Analyzer Include="$(VitaNugetPackagesDir)\Microsoft.CodeQuality.Analyzers.2.9.9\analyzers\dotnet\cs\Microsoft.CodeQuality.Analyzers.dll" />
+    <Analyzer Include="$(VitaNugetPackagesDir)\Microsoft.CodeQuality.Analyzers.2.9.9\analyzers\dotnet\cs\Microsoft.CodeQuality.CSharp.Analyzers.dll" />
+    <Analyzer Include="$(VitaNugetPackagesDir)\Microsoft.NetCore.Analyzers.2.9.9\analyzers\dotnet\cs\Microsoft.NetCore.Analyzers.dll" />
+    <Analyzer Include="$(VitaNugetPackagesDir)\Microsoft.NetCore.Analyzers.2.9.9\analyzers\dotnet\cs\Microsoft.NetCore.CSharp.Analyzers.dll" />
+    <Analyzer Include="$(VitaNugetPackagesDir)\Microsoft.NetFramework.Analyzers.2.9.9\analyzers\dotnet\cs\Microsoft.NetFramework.Analyzers.dll" />
+    <Analyzer Include="$(VitaNugetPackagesDir)\Microsoft.NetFramework.Analyzers.2.9.9\analyzers\dotnet\cs\Microsoft.NetFramework.CSharp.Analyzers.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.9" />
+    <PackageReference Include="Microsoft.CodeAnalysis.VersionCheckAnalyzer" Version="2.9.9" />
+    <PackageReference Include="Microsoft.CodeQuality.Analyzers" Version="2.9.9" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="Microsoft.DotNet.Analyzers.Compatibility" Version="0.2.12-alpha" />
+    <PackageReference Include="Microsoft.NetCore.Analyzers" Version="2.9.9" />
+    <PackageReference Include="Microsoft.NetFramework.Analyzers" Version="2.9.9" />
+    <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
+    <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+  </ItemGroup>
+  <Import Project="$(VitaNugetPackagesDir)\Microsoft.DotNet.Analyzers.Compatibility.0.2.12-alpha\build\Microsoft.DotNet.Analyzers.Compatibility.targets" Condition="Exists('$(VitaNugetPackagesDir)\Microsoft.DotNet.Analyzers.Compatibility.0.2.12-alpha\build\Microsoft.DotNet.Analyzers.Compatibility.targets')" />
+</Project>

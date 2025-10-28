@@ -1,0 +1,39 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <OutputType>Library</OutputType>
+    <CodeContractsAssemblyMode>1</CodeContractsAssemblyMode>
+  </PropertyGroup>
+  <Import Project="$(MSBuildProjectDirectory)\KSoft.Phoenix.props" />
+  <ItemGroup>
+    <ProjectReference Include="$(VitaRootDir)KSoft\KSoft\KSoft.csproj" />
+    <ProjectReference Include="$(VitaRootDir)KSoft\KSoft.Compression\KSoft.Compression.csproj" />
+    <ProjectReference Include="$(VitaRootDir)KSoft\KSoft.IO.TagElementStreams\KSoft.IO.TagElementStreams.csproj" />
+    <ProjectReference Include="$(VitaRootDir)KSoft\KSoft.Security\KSoft.Security.csproj" />
+    <ProjectReference Include="$(VitaRootDir)KSoft\KSoft.Math\KSoft.Math.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Phx\Visual\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="$(VitaRootDir)shared\external_libraries\DirectXTex\x64\DirectXTexDLL.dll" Condition="Exists('$(VitaRootDir)shared\external_libraries\DirectXTex\x64\DirectXTexDLL.dll')">
+      <Link>DDS\DirectXTexDLL.dll</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="$(VitaRootDir)shared\external_libraries\DirectXTex\x64\DirectXTexDLL.pdb" Condition="Exists('$(VitaRootDir)shared\external_libraries\DirectXTex\x64\DirectXTexDLL.pdb')">
+      <Link>DDS\DirectXTexDLL.pdb</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="$(VitaRootDir)shared\external_libraries\DirectXTex\x64\DDSView.exe" Condition="Exists('$(VitaRootDir)shared\external_libraries\DirectXTex\x64\DDSView.exe')">
+      <Link>DDS\DDSView.exe</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="$(VitaRootDir)shared\external_libraries\DirectXTex\x64\texconv.exe" Condition="Exists('$(VitaRootDir)shared\external_libraries\DirectXTex\x64\texconv.exe')">
+      <Link>DDS\texconv.exe</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
+  </ItemGroup>
+</Project>

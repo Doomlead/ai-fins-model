@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>gx</RootNamespace>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="src\NewFolder\**" />
+    <EmbeddedResource Remove="src\NewFolder\**" />
+    <None Remove="src\NewFolder\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Fin\Fin\Fin.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="OneOf" Version="3.0.271" />
+    <PackageReference Include="OneOf.SourceGenerator" Version="3.0.271" />
+  </ItemGroup>
+
+</Project>

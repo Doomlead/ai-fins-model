@@ -1,0 +1,164 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RootNamespace>uni</RootNamespace>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="util\separator\**" />
+    <EmbeddedResource Remove="util\separator\**" />
+    <None Remove="util\separator\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove=".editorconfig" />
+    <None Remove="src\img\bone.png" />
+    <None Remove="src\img\cancel.png" />
+    <None Remove="src\img\checkerboard.png" />
+    <None Remove="src\img\copy.png" />
+    <None Remove="src\img\export.png" />
+    <None Remove="src\img\export_all.png" />
+    <None Remove="src\img\folder_closed.png" />
+    <None Remove="src\img\folder_open.png" />
+    <None Remove="src\img\gamepad.png" />
+    <None Remove="src\img\grid.png" />
+    <None Remove="src\img\import.png" />
+    <None Remove="src\img\light.png" />
+    <None Remove="src\img\loop.png" />
+    <None Remove="src\img\mario.png" />
+    <None Remove="src\img\model.png" />
+    <None Remove="src\img\music.png" />
+    <None Remove="src\img\pause.png" />
+    <None Remove="src\img\picture.png" />
+    <None Remove="src\img\play.png" />
+    <None Remove="src\img\rig.png" />
+    <None Remove="src\img\save.png" />
+    <None Remove="src\img\scene.png" />
+    <None Remove="src\img\settings.png" />
+    <None Remove="src\img\video.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="src\img\bone.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\img\cancel.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\img\checkerboard.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\img\copy.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\img\export.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\img\export_all.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\img\folder_closed.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\img\folder_open.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\img\gamepad.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\img\grid.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\img\import.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\img\light.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\img\loop.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\img\mario.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\img\model.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\img\music.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\img\pause.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\img\picture.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\img\play.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\img\rig.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\img\save.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\img\scene.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\img\settings.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\img\video.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Crc32.NET" Version="1.2.0" />
+    <PackageReference Include="Gameloop.Vdf" Version="0.6.2" />
+    <PackageReference Include="Microsoft.CodeAnalysis" Version="4.14.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="9.0.8" />
+    <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Controls" Version="7.1.3" />
+    <PackageReference Include="NullFX.CRC" Version="1.1.10" />
+    <PackageReference Include="SceneGate.Ekona" Version="1.1.0" />
+    <PackageReference Include="Yarhl" Version="4.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Fin\Fin\Fin.csproj" />
+
+    <ProjectReference Include="..\..\Formats\Ast\Ast\Ast.csproj" />
+    <ProjectReference Include="..\..\Formats\Glo\Glo\Glo.csproj" />
+    <ProjectReference Include="..\..\Formats\Ssm\Ssm\Ssm.csproj" />
+    <ProjectReference Include="..\..\Formats\Vrml\Vrml\Vrml.csproj" />
+    <ProjectReference Include="..\..\Games\MarioArtist\MarioArtist\MarioArtist.csproj" />
+    <ProjectReference Include="..\..\Games\MariosPicross\MariosPicross\MariosPicross.csproj" />
+    <ProjectReference Include="..\..\Games\VictoryHeatRally\VictoryHeatRally\VictoryHeatRally.csproj" />
+
+    <ProjectReference Include="..\..\Libraries\AngelStudios\AngelStudios.csproj" />
+    <ProjectReference Include="..\..\Libraries\F3dzex2\F3dzex2\F3dzex2.csproj" />
+    <ProjectReference Include="..\..\Libraries\Fmod\Fmod\Fmod.csproj" />
+    <ProjectReference Include="..\..\Libraries\Grezzo\Grezzo\Grezzo.csproj" />
+    <ProjectReference Include="..\..\Libraries\JSystem\JSystem\JSystem.csproj" />
+    <ProjectReference Include="..\..\Libraries\Level5\Level5\Level5.csproj" />
+    <ProjectReference Include="..\..\Libraries\Nitro\Nitro\Nitro.csproj" />
+    <ProjectReference Include="..\..\Libraries\Sysdolphin\Sysdolphin\Sysdolphin.csproj" />
+    <ProjectReference Include="..\..\Libraries\VisceralGames\VisceralGames\VisceralGames.csproj" />
+
+    <ProjectReference Include="..\..\Games\BattalionWars\BattalionWars\BattalionWars.csproj" />
+    <ProjectReference Include="..\..\Games\Celeste64\Celeste64\Celeste64.csproj" />
+    <ProjectReference Include="..\..\Games\HaloWars\HaloWars\HaloWars.csproj" />
+    <ProjectReference Include="..\..\Games\MarioKartDoubleDash\MarioKartDoubleDash\MarioKartDoubleDash.csproj" />
+    <ProjectReference Include="..\..\Games\PaperMarioDirectorsCut\PaperMarioDirectorsCut\PaperMarioDirectorsCut.csproj" />
+    <ProjectReference Include="..\..\Games\PaperMarioTheThousandYearDoor\PaperMarioTheThousandYearDoor\PaperMarioTheThousandYearDoor.csproj" />
+    <ProjectReference Include="..\..\Games\Pikmin1\Pikmin1\Pikmin1.csproj" />
+    <ProjectReference Include="..\..\Games\Pikmin2\Pikmin2\Pikmin2.csproj" />
+    <ProjectReference Include="..\..\Games\RollingMadness3d\RollingMadness3d\RollingMadness3d.csproj" />
+    <ProjectReference Include="..\..\Games\SonicAdventure\SonicAdventure\SonicAdventure.csproj" />
+    <ProjectReference Include="..\..\Games\SuperMario64Ds\SuperMario64Ds\SuperMario64Ds.csproj" />
+    <ProjectReference Include="..\..\Games\SuperMario64\SuperMario64\SuperMario64.csproj" />
+    <ProjectReference Include="..\..\Utility of Time CSharp\Utility of Time CSharp.csproj" />
+  </ItemGroup>
+</Project>

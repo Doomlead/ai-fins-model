@@ -1,0 +1,76 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:common="clr-namespace:uni.ui.avalonia.common"
+             xmlns:controls="clr-namespace:fin.ui.avalonia.controls;assembly=Fin.Ui.Avalonia"
+             mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="450"
+             x:Class="uni.ui.avalonia.common.KeyValueGrid"
+             x:DataType="common:KeyValueGridViewModel">
+  <Design.DataContext>
+    <common:KeyValueGridViewModelForDesigner />
+  </Design.DataContext>
+
+  <Border BorderThickness="1"
+          BorderBrush="{StaticResource BorderBrush}">
+    <Panel Margin="0 2 0 0" 
+           ClipToBounds="True">
+      <DataGrid ItemsSource="{Binding KeyValuePairs}"
+                IsReadOnly="True"
+                GridLinesVisibility="Horizontal"
+                Margin="0 -2, 0 0"
+                HeadersVisibility="None">
+        <DataGrid.Styles>
+          <Style Selector="DataGridRow /template/ Rectangle#BackgroundRectangle">
+            <Setter Property="IsVisible" Value="false"/>
+          </Style>
+          <Style Selector="DataGridCell:current /template/ Grid#FocusVisual">
+            <Setter Property="IsVisible" Value="false" />
+          </Style>
+          <Style Selector="DataGridCell">
+            <Setter Property="MinHeight" Value="{StaticResource RegularHeight}" />
+          </Style>
+        </DataGrid.Styles>
+
+        <DataGrid.Columns>
+          <DataGridTemplateColumn Width="Auto">
+            <DataGridTemplateColumn.CellTemplate>
+              <DataTemplate>
+                <TextBlock
+                    Classes="regular"
+                    Margin="7 3"
+                    Text="{Binding Key}" />
+              </DataTemplate>
+            </DataGridTemplateColumn.CellTemplate>
+          </DataGridTemplateColumn>
+
+          <DataGridTemplateColumn Width="*">
+            <DataGridTemplateColumn.CellTemplate>
+              <DataTemplate>
+                <controls:If Condition="{Binding Value, Converter={x:Static ObjectConverters.IsNotNull}}">
+                  <controls:If.ContentWhenTrue>
+                    <SelectableTextBlock
+                        Classes="regular"
+                        Margin="7 0 0 0"
+                        VerticalAlignment="Center"
+                        TextWrapping="Wrap"
+                        Text="{Binding Value}" />
+                  </controls:If.ContentWhenTrue>
+                  <controls:If.ContentWhenFalse>
+                    <TextBlock
+                        Classes="regular"
+                        Margin="7 0 0 0"
+                        VerticalAlignment="Center"
+                        TextWrapping="Wrap">
+                      —
+                    </TextBlock>
+                  </controls:If.ContentWhenFalse>
+                </controls:If>
+              </DataTemplate>
+            </DataGridTemplateColumn.CellTemplate>
+          </DataGridTemplateColumn>
+        </DataGrid.Columns>
+      </DataGrid>
+    </Panel>
+  </Border>
+</UserControl>

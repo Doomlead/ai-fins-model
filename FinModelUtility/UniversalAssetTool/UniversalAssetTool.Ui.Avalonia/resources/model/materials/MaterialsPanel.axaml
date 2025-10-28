@@ -1,0 +1,63 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:materials="clr-namespace:uni.ui.avalonia.resources.model.materials"
+             xmlns:converters="clr-namespace:uni.ui.avalonia.util.converters"
+             xmlns:controls="clr-namespace:fin.ui.avalonia.controls;assembly=Fin.Ui.Avalonia"
+             xmlns:controls1="clr-namespace:uni.ui.avalonia.common.controls"
+             mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="800"
+             x:Class="uni.ui.avalonia.resources.model.materials.MaterialsPanel"
+             x:DataType="materials:MaterialsPanelViewModel">
+  <Design.DataContext>
+    <materials:MaterialsPanelViewModelForDesigner />
+  </Design.DataContext>
+
+  <controls:If Condition="{Binding Materials, Converter={x:Static converters:ListConverters.HasAnyItems}}">
+    <controls:If.ContentWhenTrue>
+      <Grid RowDefinitions="Auto *">
+        <ComboBox HorizontalAlignment="Stretch"
+                  MaxHeight="{StaticResource RegularHeight}"
+                  BorderBrush="{StaticResource BorderBrush}"
+                  ItemsSource="{Binding Materials}"
+                  SelectedItem="{Binding SelectedMaterial}"
+                  MinHeight="{StaticResource RegularHeight}"
+                  Padding="7 0">
+          <ComboBox.Resources>
+            <ResourceDictionary>
+              <SolidColorBrush x:Key="ComboBoxBorderBrushPointerOver" Color="{StaticResource SystemBaseMediumLowColor}" />
+              <SolidColorBrush x:Key="ComboBoxBorderBrushPressed" Color="{StaticResource SystemBaseMediumLowColor}" />
+              <SolidColorBrush x:Key="ComboBoxBackgroundPressed" Color="{StaticResource SystemChromeLowColor}" />
+            </ResourceDictionary>
+          </ComboBox.Resources>
+
+          <ComboBox.Styles>
+            <Style Selector="ComboBoxItem">
+              <Setter Property="Height" Value="{StaticResource RegularHeight}" />
+              <Setter Property="Padding" Value="7 0" />
+              <Setter Property="VerticalContentAlignment" Value="Center" />
+            </Style>
+          </ComboBox.Styles>
+
+          <ComboBox.ItemTemplate>
+            <DataTemplate>
+              <TextBlock 
+                  Classes="regular"
+                  Text="{Binding Converter={x:Static materials:MaterialsPanel.GetMaterialLabel}}" />
+            </DataTemplate>
+          </ComboBox.ItemTemplate>
+        </ComboBox>
+
+        <controls:If Grid.Row="1"
+                     Condition="{Binding SelectedMaterial, Converter={x:Static ObjectConverters.IsNotNull}}">
+          <materials:MaterialPanel DataContext="{Binding SelectedMaterialPanel}" />
+        </controls:If>
+      </Grid>
+    </controls:If.ContentWhenTrue>
+    <controls:If.ContentWhenFalse>
+      <controls1:EmptyState
+          Text="No materials to display."
+          Icon="{StaticResource MaterialIcon}" />
+    </controls:If.ContentWhenFalse>
+  </controls:If>
+</UserControl>

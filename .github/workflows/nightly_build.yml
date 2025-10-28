@@ -1,0 +1,67 @@
+name: Nightly build
+
+on: 
+  schedule:
+    - cron: "30 01 * * *"
+  workflow_dispatch:
+
+jobs:
+  check_date:
+    runs-on: ubuntu-latest
+    name: Check latest commit
+    outputs:
+      should_run: ${{ env.should_run }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: print latest_commit
+        run: echo ${{ github.sha }}
+
+      - id: should_run
+        continue-on-error: true
+        name: check latest commit is less than a day
+        if: ${{ inputs.manual != 'true' }}
+        run: |
+          echo "should_run=false" >> $GITHUB_ENV
+          if git rev-list --after="24 hours" ${{ github.sha }} | grep .; then
+            echo "should_run=true" >> $GITHUB_ENV
+          else
+            echo "should_run=false" >> $GITHUB_ENV
+          fi
+        shell: bash
+        
+  build:
+    needs: check_date
+    if: ${{ inputs.manual == 'true' || needs.check_date.outputs.should_run == 'true' }}
+
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 10.0.x
+        include-prerelease: true
+
+    - name: Restore dependencies
+      run: dotnet restore
+      working-directory: FinModelUtility
+
+    - name: Build
+      shell: cmd
+      run: publish_universal_asset_tool.bat /f
+      working-directory: bat
+      
+    - name: Zip files
+      run: Compress-Archive -Path cli/** -Destination melty_tool.zip
+      
+    - name: Upload
+      uses: andelf/nightly-release@main
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        name: "Nightly Build ${{ github.sha }}"
+        tag: nightly-${{ github.sha }}
+        files: melty_tool.zip
+        prerelease: false

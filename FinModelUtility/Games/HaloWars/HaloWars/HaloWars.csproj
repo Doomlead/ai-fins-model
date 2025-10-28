@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <RootNamespace>hw</RootNamespace>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Resources\HWGlsResource.cs" />
+    <Compile Remove="Resources\HWObjectDefinition.cs" />
+    <Compile Remove="Resources\HWObjectInstance.cs" />
+    <Compile Remove="Resources\HWSc2Resource.cs" />
+    <Compile Remove="Resources\HWSc3Resource.cs" />
+    <Compile Remove="Resources\HWScnResource.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Fin\Fin\Fin.csproj" />
+    <ProjectReference Include="..\..\..\Libraries\Granny3d\Granny3d.csproj" />
+    <ProjectReference Include="..\KSoft\KSoft.Phoenix\KSoft.Phoenix.csproj" />
+    <ProjectReference Include="..\KSoft\KSoft\KSoft.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="src\schema\vis\" />
+    <Folder Include="src\schema\ugx\" />
+    <Folder Include="src\schema\xtd\" />
+  </ItemGroup>
+</Project>

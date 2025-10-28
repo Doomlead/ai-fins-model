@@ -1,0 +1,64 @@
+name: Unit tests
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v5
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v5
+      with:
+        dotnet-version: 10.0.x
+        dotnet-quality: 'preview'
+        include-prerelease: true 
+
+    - name: Restore dependencies
+      run: dotnet restore
+      working-directory: FinModelUtility
+
+    - name: Build
+      run: dotnet build --no-restore
+      working-directory: FinModelUtility
+
+    - name: Create /mesa directory
+      run: mkdir mesa
+
+    - name: Install Mesa Windows
+      uses: f3d-app/install-mesa-windows-action@v1
+      with:
+        path: "${{github.workspace}}\\mesa"
+
+    - name: Print mesa files
+      run: dir
+      working-directory: mesa
+
+    - name: Copy Mesa files to VRML test directory
+      run: xcopy . "${{github.workspace}}\FinModelUtility\Formats\Vrml\Vrml Tests\bin\x64\Debug\net10.0"
+      working-directory: mesa
+
+    - name: Test
+      run: dotnet test --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=lcov /p:ExcludeByFile="**/Fin.Ui/**/*.cs%2c**/KSoft/**/*.cs%2c**/QuickFont/**/*.cs%2c**/SceneGate/**/*.cs"
+      working-directory: FinModelUtility
+
+    - name: Set Up NPM
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+    - name: Install 'lcov-result-merger'
+      run: npm i -g lcov-result-merger
+    - name: Merge Test Coverage
+      run: lcov-result-merger "**/coverage.info" "lcov.info" --legacy-temp-file
+
+    - name: Upload to Coveralls
+      uses: coverallsapp/github-action@master
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        path-to-lcov: lcov.info

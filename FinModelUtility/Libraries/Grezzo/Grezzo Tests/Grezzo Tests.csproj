@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RootNamespace>grezzo</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Grezzo\Grezzo.csproj" />
+    <ProjectReference Include="..\..\..\Fin\Fin\Fin.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="goldens\cmb\optdemo1\output\" />
+    <Folder Include="goldens\cmb\majoras_mask_3d_zelda_cow\output\" />
+    <Folder Include="goldens\cmb\ocarina_of_time_3d_zelda_cow\output\" />
+    <Folder Include="goldens\shpa\luigis_mansion_3d\" />
+  </ItemGroup>
+
+</Project>
