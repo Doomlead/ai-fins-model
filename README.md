@@ -131,6 +131,7 @@ If you'd like to vote on new games or features that should be supported, please 
 - .modl/.out (GCN/WII)
   - Battalion Wars (`battalion_wars_1.[ciso/gcm/iso/nkit.iso]`)
   - Battalion Wars 2 (`battalion_wars_2.iso`)
+  - Def Jam: Fight for NY (`def_jam_fight_for_ny.[ciso/gcm/iso/nkit.iso]`)
 - (Picross puzzles)
   - Mario's Picross (`marios_picross_1.gb`)
   - Picross 2 (AKA Mario's Picross 2) (`marios_picross_2.gb`)
