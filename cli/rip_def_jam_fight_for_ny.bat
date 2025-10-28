@@ -1,0 +1,3 @@
+tools\universal_asset_tool\universal_asset_tool.exe def_jam_fight_for_ny
+
+pause
