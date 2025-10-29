@@ -55,9 +55,7 @@ namespace KSoft.IO
 		/// <summary>Restore the cursor to what it was before the corresponding call to a <see cref="WriteElementBegin(string, XmlElement&amp;)"/></summary>
 		public void WriteElementEnd(ref TCursor oldCursor)
 		{
-			#if !CONTRACTS_FULL_SHIM // can't do this with our shim! ValueAtReturn sets out param to default ON ENTRY
 			Contract.Ensures(Contract.ValueAtReturn(out oldCursor) == null);
-			#endif
 
 			this.RestoreCursor(ref oldCursor);
 		}
