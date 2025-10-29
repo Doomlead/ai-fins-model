@@ -5,7 +5,7 @@
     <AvaloniaVersion>11.3.6</AvaloniaVersion>
     <OpenGlVersion>4.9.3</OpenGlVersion>
     <Platforms>x86;x64</Platforms>
-    <TargetFramework>net10.0</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
     <LangVersion>preview</LangVersion>
     <AnalysisLevel>latest-recommended</AnalysisLevel>
   </PropertyGroup>
