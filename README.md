@@ -155,6 +155,8 @@ If you'd like to vote on new games or features that should be supported, please 
 
 Download a release via the Releases tab (for stability), or via the green "Code" button above (for latest). Extract this somewhere on your machine.
 
+*If you pulled the repository source directly, run `bat\publish_universal_asset_tool.bat /f` once after updating to rebuild `tools\universal_asset_tool\universal_asset_tool.exe` so the latest command-line verbs (such as `def_jam_fight_for_ny`) are available.*
+
 Then, follow the steps below.
 
 ### Viewing/extracting models from ROMs automatically
