@@ -1,4 +1,9 @@
-﻿using fin.common;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+using fin.common;
 using fin.config;
 using fin.io;
 using fin.io.archive;
@@ -30,7 +35,7 @@ public sealed class GcnFileHierarchyExtractor {
       string gameName,
       Options options,
       out IFileHierarchy fileHierarchy) {
-    if (!this.TryToFindRom_(gameName, out var romFile)) {
+    if (!this.TryToFindRom_(gameName, options, out var romFile)) {
       fileHierarchy = null;
       return false;
     }
@@ -39,15 +44,61 @@ public sealed class GcnFileHierarchyExtractor {
     return true;
   }
 
-  private bool TryToFindRom_(string gameName, out ISystemFile romFile)
-    => DirectoryConstants.ROMS_DIRECTORY
-                         .TryToGetExistingFileWithFileType(
-                             gameName,
-                             out romFile,
-                             ".ciso",
-                             ".nkit.iso",
-                             ".iso",
-                             ".gcm");
+  private bool TryToFindRom_(
+      string gameName,
+      Options options,
+      out ISystemFile romFile) {
+    var romBasenameCandidates = new List<string> { gameName };
+    romBasenameCandidates.AddRange(options.RomBasenameAliases);
+
+    foreach (var candidate in romBasenameCandidates) {
+      if (DirectoryConstants.ROMS_DIRECTORY.TryToGetExistingFileWithFileType(
+              candidate,
+              out romFile,
+              ".ciso",
+              ".nkit.iso",
+              ".iso",
+              ".gcm")) {
+        return true;
+      }
+    }
+
+    var sanitizedTargets = romBasenameCandidates
+        .Select(SanitizeRomBasename_)
+        .Where(s => s.Length > 0)
+        .ToHashSet();
+
+    foreach (var file in DirectoryConstants.ROMS_DIRECTORY.GetExistingFiles()) {
+      if (file is not ISystemFile systemFile) {
+        continue;
+      }
+
+      var fileType = systemFile.FileType;
+      if (fileType is not ".ciso" and not ".nkit.iso" and not ".iso" and not ".gcm") {
+        continue;
+      }
+
+      var sanitizedName = SanitizeRomBasename_(systemFile.NameWithoutExtension);
+      if (sanitizedTargets.Any(target => sanitizedName.Contains(target))) {
+        romFile = systemFile;
+        return true;
+      }
+    }
+
+    romFile = null;
+    return false;
+  }
+
+  private static string SanitizeRomBasename_(ReadOnlySpan<char> value) {
+    var builder = new StringBuilder(value.Length);
+    foreach (var ch in value) {
+      if (char.IsLetterOrDigit(ch)) {
+        builder.Append(char.ToLowerInvariant(ch));
+      }
+    }
+
+    return builder.ToString();
+  }
 
   public IFileHierarchy ExtractFromRom_(
       ISystemFile romFile,
@@ -143,12 +194,14 @@ public sealed class GcnFileHierarchyExtractor {
     private readonly HashSet<string> rarcDumpPruneNames_ = [];
     private readonly HashSet<string> yay0DecExtensions_ = [];
     private readonly HashSet<string> yaz0DecExtensions_ = [];
+    private readonly List<string> romBasenameAliases_ = [];
 
     private Options() {
       this.RarcDumpExtensions = this.rarcDumpExtensions_;
       this.RarcDumpPruneNames = this.rarcDumpPruneNames_;
       this.Yay0DecExtensions = this.yay0DecExtensions_;
       this.Yaz0DecExtensions = this.yaz0DecExtensions_;
+      this.RomBasenameAliases = this.romBasenameAliases_;
     }
 
     public static Options Empty() => new();
@@ -162,6 +215,7 @@ public sealed class GcnFileHierarchyExtractor {
     public IReadOnlySet<string> RarcDumpPruneNames { get; }
     public IReadOnlySet<string> Yaz0DecExtensions { get; }
     public IReadOnlySet<string> Yay0DecExtensions { get; }
+    public IReadOnlyList<string> RomBasenameAliases { get; }
     public bool ContainerCleanupEnabled { get; private set; }
 
     public Options UseRarcDumpForExtensions(
@@ -203,6 +257,17 @@ public sealed class GcnFileHierarchyExtractor {
       this.yaz0DecExtensions_.Add(first);
       foreach (var o in rest) {
         this.yaz0DecExtensions_.Add(o);
+      }
+
+      return this;
+    }
+
+    public Options AddRomBasenameAliases(
+        string first,
+        params string[] rest) {
+      this.romBasenameAliases_.Add(first);
+      foreach (var alias in rest) {
+        this.romBasenameAliases_.Add(alias);
       }
 
       return this;
