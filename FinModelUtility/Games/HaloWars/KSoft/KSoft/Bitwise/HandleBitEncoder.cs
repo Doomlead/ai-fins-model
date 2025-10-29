@@ -1,9 +1,5 @@
 ﻿using System;
-#if CONTRACTS_FULL_SHIM
-
-#else
-using Contract = System.Diagnostics.Contracts.Contract; // SHIM'D
-#endif
+using Contract = System.Diagnostics.Contracts.Contract;
 
 namespace KSoft.Bitwise
 {

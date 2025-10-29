@@ -1,8 +1,4 @@
-﻿#if CONTRACTS_FULL_SHIM
-using Contract = System.Diagnostics.ContractsShim.Contract;
-#else
-using Contract = System.Diagnostics.Contracts.Contract; // SHIM'D
-#endif
+﻿using Contract = System.Diagnostics.Contracts.Contract;
 
 using BVector = System.Numerics.Vector4;
 using BBitVector32 = System.UInt32;

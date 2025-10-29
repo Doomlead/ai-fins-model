@@ -1,8 +1,4 @@
-﻿#if CONTRACTS_FULL_SHIM
-using Contract = System.Diagnostics.ContractsShim.Contract;
-#else
-using Contract = System.Diagnostics.Contracts.Contract; // SHIM'D
-#endif
+﻿using Contract = System.Diagnostics.Contracts.Contract;
 
 using BProtoObjectID = System.Int32;
 using BProtoObjectTrainLimit = System.Int32; // idk, 4 bytes

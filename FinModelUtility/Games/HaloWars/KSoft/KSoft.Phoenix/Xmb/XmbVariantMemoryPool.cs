@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-#if CONTRACTS_FULL_SHIM
-using Contract = System.Diagnostics.ContractsShim.Contract;
-#else
-using Contract = System.Diagnostics.Contracts.Contract; // SHIM'D
-#endif
+using Contract = System.Diagnostics.Contracts.Contract;
 
 using Vector2f = System.Numerics.Vector2;
 using Vector3f = System.Numerics.Vector3;
