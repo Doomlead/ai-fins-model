@@ -1,3 +1,4 @@
+using System.Diagnostics;
 ﻿/*
  * Copyright (c) 2013 Calvin Rien
  *

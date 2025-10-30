@@ -1,3 +1,4 @@
+using System.Diagnostics;
 ﻿
 using BEntityID = System.Int32;
 

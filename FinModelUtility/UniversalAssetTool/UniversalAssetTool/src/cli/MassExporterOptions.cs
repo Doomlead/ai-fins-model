@@ -5,6 +5,7 @@ using uni.games.animal_crossing;
 using uni.games.battalion_wars_1;
 using uni.games.battalion_wars_2;
 using uni.games.chibi_robo;
+using uni.games.def_jam_fight_for_ny;
 using uni.games.glover;
 using uni.games.halo_wars;
 using uni.games.luigis_mansion;
@@ -50,6 +51,11 @@ public sealed class BattalionWars1Options
       HelpText = "Export models en-masse from Battalion Wars 2.")]
 public sealed class BattalionWars2Options
     : IMassExporterOptions<BattalionWars2MassExporter>;
+
+[Verb("def_jam_fight_for_ny",
+      HelpText = "Export models en-masse from Def Jam: Fight for NY.")]
+public sealed class DefJamFightForNyOptions
+    : IMassExporterOptions<DefJamFightForNyMassExporter>;
 
 [Verb("chibi_robo", HelpText = "Export models en-masse from Chibi-Robo!")]
 public sealed class ChibiRoboOptions : IMassExporterOptions<ChibiRoboMassExporter>;

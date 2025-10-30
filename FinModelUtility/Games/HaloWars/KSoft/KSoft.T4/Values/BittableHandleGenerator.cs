@@ -1,3 +1,4 @@
+using System.Diagnostics;
 ﻿using System;
 using Debug = System.Diagnostics.Debug;
 using TextTemplating = Microsoft.VisualStudio.TextTemplating;

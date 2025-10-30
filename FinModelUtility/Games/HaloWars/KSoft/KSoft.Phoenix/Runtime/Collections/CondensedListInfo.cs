@@ -1,3 +1,4 @@
+using System.Diagnostics;
 ﻿
 namespace KSoft.Phoenix.Runtime
 {

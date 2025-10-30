@@ -1,9 +1,5 @@
 ﻿using Contracts = System.Diagnostics.Contracts;
-#if CONTRACTS_FULL_SHIM
-using Contract = System.Diagnostics.ContractsShim.Contract;
-#else
-using Contract = System.Diagnostics.Contracts.Contract; // SHIM'D
-#endif
+using Contract = System.Diagnostics.Contracts.Contract;
 
 using TWord = System.UInt32;
 
@@ -59,10 +55,8 @@ namespace KSoft.IO
 		/// <summary>Flush the cache to <see cref="BaseStream"/> with <see cref="kWordByteCount"/> or fewer bytes bytes</summary>
 		void FlushCache()
 		{
-			#if !CONTRACTS_FULL_SHIM // can't do this with our shim! ValueAtReturn sets out param to default ON ENTRY
 			Contract.Ensures(Contract.ValueAtReturn(out mCache) == 0);
 			Contract.Ensures(Contract.ValueAtReturn(out mCacheBitIndex) == 0);
-			#endif
 
 			if (this.mCacheBitIndex == 0) // no bits to flush!
 			{

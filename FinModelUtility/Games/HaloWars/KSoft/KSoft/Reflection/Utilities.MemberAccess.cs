@@ -1,9 +1,5 @@
 ﻿using System;
-#if CONTRACTS_FULL_SHIM
-using Contract = System.Diagnostics.ContractsShim.Contract;
-#else
-using Contract = System.Diagnostics.Contracts.Contract; // SHIM'D
-#endif
+using Contract = System.Diagnostics.Contracts.Contract;
 using Exprs = System.Linq.Expressions;
 using Expr = System.Linq.Expressions.Expression;
 using Reflect = System.Reflection;

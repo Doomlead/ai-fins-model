@@ -1,3 +1,4 @@
+using System.Diagnostics;
 ﻿using System.Xml;
 
 namespace KSoft.Phoenix.XML

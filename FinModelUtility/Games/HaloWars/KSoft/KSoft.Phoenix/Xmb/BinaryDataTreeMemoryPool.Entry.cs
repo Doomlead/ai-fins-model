@@ -1,3 +1,4 @@
+using System.Diagnostics;
 ﻿using Interop = System.Runtime.InteropServices;
 
 namespace KSoft.Phoenix.Xmb
