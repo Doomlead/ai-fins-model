@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-#if CONTRACTS_FULL_SHIM
-using Contract = System.Diagnostics.ContractsShim.Contract;
-#else
-using Contract = System.Diagnostics.Contracts.Contract; // SHIM'D
-#endif
+using Contract = System.Diagnostics.Contracts.Contract;
 
 namespace KSoft.IO
 {
@@ -59,9 +55,7 @@ namespace KSoft.IO
 		/// <summary>Restore the cursor to what it was before the corresponding call to a <see cref="WriteElementBegin(string, XmlElement&amp;)"/></summary>
 		public void WriteElementEnd(ref TCursor oldCursor)
 		{
-			#if !CONTRACTS_FULL_SHIM // can't do this with our shim! ValueAtReturn sets out param to default ON ENTRY
 			Contract.Ensures(Contract.ValueAtReturn(out oldCursor) == null);
-			#endif
 
 			this.RestoreCursor(ref oldCursor);
 		}

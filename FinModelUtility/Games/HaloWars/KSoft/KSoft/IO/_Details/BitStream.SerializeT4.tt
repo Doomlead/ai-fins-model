@@ -4,11 +4,7 @@
 <#@ import namespace="KSoft.T4" #>
 <#@ import namespace="KSoft.T4.Bitwise" #>
 using System.Collections.Generic;
-#if CONTRACTS_FULL_SHIM
-using Contract = System.Diagnostics.ContractsShim.Contract;
-#else
-using Contract = System.Diagnostics.Contracts.Contract; // SHIM'D
-#endif
+using Contract = System.Diagnostics.Contracts.Contract;
 
 using TWord = System.<#= BitwiseT4.BitStreamCacheWord.Code #>;
 
