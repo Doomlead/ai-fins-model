@@ -131,6 +131,7 @@ If you'd like to vote on new games or features that should be supported, please 
 - .modl/.out (GCN/WII)
   - Battalion Wars (`battalion_wars_1.[ciso/gcm/iso/nkit.iso]`)
   - Battalion Wars 2 (`battalion_wars_2.iso`)
+  - Def Jam: Fight for NY (`def_jam_fight_for_ny.[ciso/gcm/iso/nkit.iso]`)
 - (Picross puzzles)
   - Mario's Picross (`marios_picross_1.gb`)
   - Picross 2 (AKA Mario's Picross 2) (`marios_picross_2.gb`)
@@ -153,6 +154,8 @@ If you'd like to vote on new games or features that should be supported, please 
 ## Usage guide
 
 Download a release via the Releases tab (for stability), or via the green "Code" button above (for latest). Extract this somewhere on your machine.
+
+*If you pulled the repository source directly, run `bat\publish_universal_asset_tool.bat /f` once after updating to rebuild `tools\universal_asset_tool\universal_asset_tool.exe` so the latest command-line verbs (such as `def_jam_fight_for_ny`) are available.*
 
 Then, follow the steps below.
 

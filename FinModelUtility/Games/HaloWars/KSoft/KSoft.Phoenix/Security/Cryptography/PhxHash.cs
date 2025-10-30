@@ -1,11 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Security.Cryptography;
-#if CONTRACTS_FULL_SHIM
-using Contract = System.Diagnostics.ContractsShim.Contract;
-#else
-using Contract = System.Diagnostics.Contracts.Contract; // SHIM'D
-#endif
+using Contract = System.Diagnostics.Contracts.Contract;
 
 namespace KSoft.Security.Cryptography
 {
